@@ -1,0 +1,95 @@
+
+Project 5: Apply thinning algorithm to a binary objects to obtain
+		the skeltons of objects
+	     
+
+**************************************
+Language: C++
+
+*************************************
+
+I. Input: a binary image to be given.
+	  // Use argv[1] for the input file
+
+II. Outputs: 
+
+      You should have two output files: // Use argv[2] and argv[3].
+
+	- Use argv[2] to do:
+  
+		1) Create the skelton image from the final result of the thinning algorithm 
+			with image header for future processing.
+
+		- Use argv[3] for debugging: 
+ 
+		2) Pretty print the *first cycle* after each thinning direction (N, S, W, E) 
+			with proper caption.
+	
+		3) After the first cycle, pretty print the result 
+			after the completion of each thinning cycle with proper caption
+
+
+*******************************
+III. Data structure:
+*******************************
+ - An ImageProcessing class
+
+	- numRows (int)
+	- numCols (int)
+	- minVal (int)
+	- maxVal (int)
+	- changeflag (bool)
+	- FirstAry (int **) a 2D array, need to dynamically allocate at run time
+			of size numRows + 2 by numCols + 2.
+	- SecondAry (int **) a 2D array, need to dynamically allocate at run time
+			of size numRows + 2 by numCols + 2.
+
+	- methods:
+	- constructor(...)
+		- need to dynamically allocate firstAry and secondAry 
+		- assign values to numRows,..., etc.
+ 	- zeroFramed  
+	- loadImage 
+			// Read from the input file onto firstAry  
+			// the first pixel of input image is loaded 
+			// at FirstAry[1][1]
+	- copyAry
+	- OneCycleThinning
+	- NorthThinning
+	- SouthThinning
+	- WestThinning
+	- EastThinning
+	- prettyPrint
+     
+*******************************
+III. Algorithms 
+*******************************
+  
+step 0: read the image header
+        dynamically allocate firstAry and secondAry
+
+step 1: 1.1 zeroFrame the two arrays.
+        1.2 read from the input file onto firstAry
+
+step 2: OneCycleThinning // first cycle, keep track of changeflag
+        - NorthThinning // look at firstAry and write the result to secondAry
+	- prettyPrint // print secondAry  with caption, in argv[3]
+	- SouthThinning // look at firstAry and write the result to secondAry
+	- prettyPrint // print secondAry  with caption, in argv[3]
+	- WestThinning // look at firstAry and write the result to secondAry
+	- prettyPrint // print secondAry  with caption, in argv[3]
+	- EastThinning // look at firstAry and write the result to secondAry
+	- prettyPrint // print secondAry with caption, in argv[3]
+	
+step 3: if (changeFlag is true)
+		- set changeFlag to false
+		- copy secondAry to firstAry
+		- OneCycleThinning // N, S, W, E, keep track of changeflag
+		- prettyPrint // print secondAry with caption, in argv[3]
+
+step 4: repeat step 3 while changeFlag == true
+
+step 5: create a image file from secondAry in argv[2]
+
+
+
