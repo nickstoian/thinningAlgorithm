@@ -1,0 +1,27 @@
+step 0: read the image header
+             dynamically allocate firstAry and secondAry
+
+step 1:  1.1 zeroFrame the two arrays.
+        	1.2 read from the input file onto firstAry
+
+step 2: OneCycleThinning // first cycle, keep track of changeflag
+               - NorthThinning // look at firstAry and write the result to secondAry
+	- prettyPrint // print secondAry  with caption, in argv[3]
+	- SouthThinning // look at firstAry and write the result to secondAry
+	- prettyPrint // print secondAry  with caption, in argv[3]
+	- WestThinning // look at firstAry and write the result to secondAry
+	- prettyPrint // print secondAry  with caption, in argv[3]
+	- EastThinning // look at firstAry and write the result to secondAry
+	- prettyPrint // print secondAry with caption, in argv[3]
+	
+step 3: if (changeFlag is true)
+        	- set changeFlag to false
+        	- copy secondAry to firstAry
+        	- OneCycleThinning // N, S, W, E, keep track of changeflag
+        	- prettyPrint // print secondAry with caption, on argv[3],
+        	  for every third (3rd) cycle.
+
+step 4: repeat step 3 while changeFlag == true
+
+step 5: create a image file from secondAry in argv[2]
+             prettyPrint // print the final secondAry to argv[3]
